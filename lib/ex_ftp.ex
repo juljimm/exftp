@@ -185,6 +185,11 @@ defmodule ExFtp do
     end)
   end
 
+  def ls_raw({:ftp, pid}, path) do
+    {:ok, listing} = :ftp.ls(pid, s_to_l(path))
+    listing |> List.to_string()
+  end
+
   def is_directory?({:ftp, pid}, _path) do
     :ftp.ls(pid)
     |> case do
